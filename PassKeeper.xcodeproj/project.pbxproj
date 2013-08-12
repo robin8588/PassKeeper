@@ -1,0 +1,311 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1AE4214E17B8C079001A1B58 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE4214D17B8C079001A1B58 /* UIKit.framework */; };
+		1AE4215017B8C079001A1B58 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE4214F17B8C079001A1B58 /* Foundation.framework */; };
+		1AE4215217B8C079001A1B58 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE4215117B8C079001A1B58 /* CoreGraphics.framework */; };
+		1AE4215417B8C079001A1B58 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE4215317B8C079001A1B58 /* CoreData.framework */; };
+		1AE4215A17B8C079001A1B58 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AE4215817B8C079001A1B58 /* InfoPlist.strings */; };
+		1AE4215C17B8C079001A1B58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4215B17B8C079001A1B58 /* main.m */; };
+		1AE4216017B8C079001A1B58 /* LEOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4215F17B8C079001A1B58 /* LEOAppDelegate.m */; };
+		1AE4216217B8C079001A1B58 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE4216117B8C079001A1B58 /* Default.png */; };
+		1AE4216417B8C079001A1B58 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE4216317B8C079001A1B58 /* Default@2x.png */; };
+		1AE4216617B8C079001A1B58 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE4216517B8C079001A1B58 /* Default-568h@2x.png */; };
+		1AE4216917B8C079001A1B58 /* PassKeeper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4216717B8C079001A1B58 /* PassKeeper.xcdatamodeld */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1AE4214A17B8C079001A1B58 /* PassKeeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassKeeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AE4214D17B8C079001A1B58 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1AE4214F17B8C079001A1B58 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1AE4215117B8C079001A1B58 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1AE4215317B8C079001A1B58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1AE4215717B8C079001A1B58 /* PassKeeper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PassKeeper-Info.plist"; sourceTree = "<group>"; };
+		1AE4215917B8C079001A1B58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1AE4215B17B8C079001A1B58 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1AE4215D17B8C079001A1B58 /* PassKeeper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PassKeeper-Prefix.pch"; sourceTree = "<group>"; };
+		1AE4215E17B8C079001A1B58 /* LEOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEOAppDelegate.h; sourceTree = "<group>"; };
+		1AE4215F17B8C079001A1B58 /* LEOAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEOAppDelegate.m; sourceTree = "<group>"; };
+		1AE4216117B8C079001A1B58 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		1AE4216317B8C079001A1B58 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		1AE4216517B8C079001A1B58 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		1AE4216817B8C079001A1B58 /* PassKeeper.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PassKeeper.xcdatamodel; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1AE4214717B8C079001A1B58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AE4214E17B8C079001A1B58 /* UIKit.framework in Frameworks */,
+				1AE4215017B8C079001A1B58 /* Foundation.framework in Frameworks */,
+				1AE4215217B8C079001A1B58 /* CoreGraphics.framework in Frameworks */,
+				1AE4215417B8C079001A1B58 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1AE4214117B8C078001A1B58 = {
+			isa = PBXGroup;
+			children = (
+				1AE4215517B8C079001A1B58 /* PassKeeper */,
+				1AE4214C17B8C079001A1B58 /* Frameworks */,
+				1AE4214B17B8C079001A1B58 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1AE4214B17B8C079001A1B58 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1AE4214A17B8C079001A1B58 /* PassKeeper.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1AE4214C17B8C079001A1B58 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1AE4214D17B8C079001A1B58 /* UIKit.framework */,
+				1AE4214F17B8C079001A1B58 /* Foundation.framework */,
+				1AE4215117B8C079001A1B58 /* CoreGraphics.framework */,
+				1AE4215317B8C079001A1B58 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1AE4215517B8C079001A1B58 /* PassKeeper */ = {
+			isa = PBXGroup;
+			children = (
+				1AE4215E17B8C079001A1B58 /* LEOAppDelegate.h */,
+				1AE4215F17B8C079001A1B58 /* LEOAppDelegate.m */,
+				1AE4216717B8C079001A1B58 /* PassKeeper.xcdatamodeld */,
+				1AE4215617B8C079001A1B58 /* Supporting Files */,
+			);
+			path = PassKeeper;
+			sourceTree = "<group>";
+		};
+		1AE4215617B8C079001A1B58 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1AE4215717B8C079001A1B58 /* PassKeeper-Info.plist */,
+				1AE4215817B8C079001A1B58 /* InfoPlist.strings */,
+				1AE4215B17B8C079001A1B58 /* main.m */,
+				1AE4215D17B8C079001A1B58 /* PassKeeper-Prefix.pch */,
+				1AE4216117B8C079001A1B58 /* Default.png */,
+				1AE4216317B8C079001A1B58 /* Default@2x.png */,
+				1AE4216517B8C079001A1B58 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1AE4214917B8C079001A1B58 /* PassKeeper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1AE4216C17B8C079001A1B58 /* Build configuration list for PBXNativeTarget "PassKeeper" */;
+			buildPhases = (
+				1AE4214617B8C079001A1B58 /* Sources */,
+				1AE4214717B8C079001A1B58 /* Frameworks */,
+				1AE4214817B8C079001A1B58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PassKeeper;
+			productName = PassKeeper;
+			productReference = 1AE4214A17B8C079001A1B58 /* PassKeeper.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1AE4214217B8C078001A1B58 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = LEO;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Wang Leo";
+			};
+			buildConfigurationList = 1AE4214517B8C078001A1B58 /* Build configuration list for PBXProject "PassKeeper" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1AE4214117B8C078001A1B58;
+			productRefGroup = 1AE4214B17B8C079001A1B58 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1AE4214917B8C079001A1B58 /* PassKeeper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1AE4214817B8C079001A1B58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AE4215A17B8C079001A1B58 /* InfoPlist.strings in Resources */,
+				1AE4216217B8C079001A1B58 /* Default.png in Resources */,
+				1AE4216417B8C079001A1B58 /* Default@2x.png in Resources */,
+				1AE4216617B8C079001A1B58 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1AE4214617B8C079001A1B58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AE4215C17B8C079001A1B58 /* main.m in Sources */,
+				1AE4216017B8C079001A1B58 /* LEOAppDelegate.m in Sources */,
+				1AE4216917B8C079001A1B58 /* PassKeeper.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1AE4215817B8C079001A1B58 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1AE4215917B8C079001A1B58 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1AE4216A17B8C079001A1B58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1AE4216B17B8C079001A1B58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1AE4216D17B8C079001A1B58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PassKeeper/PassKeeper-Prefix.pch";
+				INFOPLIST_FILE = "PassKeeper/PassKeeper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1AE4216E17B8C079001A1B58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PassKeeper/PassKeeper-Prefix.pch";
+				INFOPLIST_FILE = "PassKeeper/PassKeeper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1AE4214517B8C078001A1B58 /* Build configuration list for PBXProject "PassKeeper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1AE4216A17B8C079001A1B58 /* Debug */,
+				1AE4216B17B8C079001A1B58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1AE4216C17B8C079001A1B58 /* Build configuration list for PBXNativeTarget "PassKeeper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1AE4216D17B8C079001A1B58 /* Debug */,
+				1AE4216E17B8C079001A1B58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1AE4216717B8C079001A1B58 /* PassKeeper.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1AE4216817B8C079001A1B58 /* PassKeeper.xcdatamodel */,
+			);
+			currentVersion = 1AE4216817B8C079001A1B58 /* PassKeeper.xcdatamodel */;
+			path = PassKeeper.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 1AE4214217B8C078001A1B58 /* Project object */;
+}
