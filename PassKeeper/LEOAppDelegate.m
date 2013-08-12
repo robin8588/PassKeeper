@@ -7,6 +7,7 @@
 //
 
 #import "LEOAppDelegate.h"
+#import "Key.h"
 
 @implementation LEOAppDelegate
 
@@ -16,10 +17,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    self.keyListsViewController=[[KeyListsViewController alloc] initWithNibName:nil bundle:nil];
+    self.navigationController =[[UINavigationController alloc] initWithRootViewController:self.keyListsViewController];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    self.window.rootViewController=self.navigationController;
     return YES;
 }
 

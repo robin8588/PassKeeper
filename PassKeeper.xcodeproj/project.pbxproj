@@ -18,6 +18,9 @@
 		1AE4216417B8C079001A1B58 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE4216317B8C079001A1B58 /* Default@2x.png */; };
 		1AE4216617B8C079001A1B58 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AE4216517B8C079001A1B58 /* Default-568h@2x.png */; };
 		1AE4216917B8C079001A1B58 /* PassKeeper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4216717B8C079001A1B58 /* PassKeeper.xcdatamodeld */; };
+		1AE4217117B8C1DF001A1B58 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4217017B8C1DF001A1B58 /* Key.m */; };
+		1AE4217417B8C2C8001A1B58 /* KeyListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4217317B8C2C8001A1B58 /* KeyListsViewController.m */; };
+		1AE4217717B8C2DA001A1B58 /* KeyDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4217617B8C2DA001A1B58 /* KeyDetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,12 @@
 		1AE4216317B8C079001A1B58 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		1AE4216517B8C079001A1B58 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1AE4216817B8C079001A1B58 /* PassKeeper.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PassKeeper.xcdatamodel; sourceTree = "<group>"; };
+		1AE4216F17B8C1DE001A1B58 /* Key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
+		1AE4217017B8C1DF001A1B58 /* Key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Key.m; sourceTree = "<group>"; };
+		1AE4217217B8C2C8001A1B58 /* KeyListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyListsViewController.h; sourceTree = "<group>"; };
+		1AE4217317B8C2C8001A1B58 /* KeyListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyListsViewController.m; sourceTree = "<group>"; };
+		1AE4217517B8C2DA001A1B58 /* KeyDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyDetailsViewController.h; sourceTree = "<group>"; };
+		1AE4217617B8C2DA001A1B58 /* KeyDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyDetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +96,13 @@
 				1AE4215E17B8C079001A1B58 /* LEOAppDelegate.h */,
 				1AE4215F17B8C079001A1B58 /* LEOAppDelegate.m */,
 				1AE4216717B8C079001A1B58 /* PassKeeper.xcdatamodeld */,
+				1AE4216F17B8C1DE001A1B58 /* Key.h */,
+				1AE4217017B8C1DF001A1B58 /* Key.m */,
 				1AE4215617B8C079001A1B58 /* Supporting Files */,
+				1AE4217217B8C2C8001A1B58 /* KeyListsViewController.h */,
+				1AE4217317B8C2C8001A1B58 /* KeyListsViewController.m */,
+				1AE4217517B8C2DA001A1B58 /* KeyDetailsViewController.h */,
+				1AE4217617B8C2DA001A1B58 /* KeyDetailsViewController.m */,
 			);
 			path = PassKeeper;
 			sourceTree = "<group>";
@@ -175,6 +190,9 @@
 				1AE4215C17B8C079001A1B58 /* main.m in Sources */,
 				1AE4216017B8C079001A1B58 /* LEOAppDelegate.m in Sources */,
 				1AE4216917B8C079001A1B58 /* PassKeeper.xcdatamodeld in Sources */,
+				1AE4217117B8C1DF001A1B58 /* Key.m in Sources */,
+				1AE4217417B8C2C8001A1B58 /* KeyListsViewController.m in Sources */,
+				1AE4217717B8C2DA001A1B58 /* KeyDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +274,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PassKeeper/PassKeeper-Prefix.pch";
 				INFOPLIST_FILE = "PassKeeper/PassKeeper-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -267,6 +286,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PassKeeper/PassKeeper-Prefix.pch";
 				INFOPLIST_FILE = "PassKeeper/PassKeeper-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
