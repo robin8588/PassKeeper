@@ -84,10 +84,11 @@
 }
 
 -(void)createNewKey:(id)sender{
-    LEOAppDelegate *appDelegate=(LEOAppDelegate *)[[UIApplication sharedApplication]delegate];
     
-    NSManagedObjectContext *managedObjectContext=appDelegate.managedObjectContext;
     
+    NSManagedObjectContext *managedObjectContext=[self managedObjectContext];
+    if([self checkKey:self.textName.text withManageContext:managedObjectContext])
+    {
     Key *newKey=[NSEntityDescription insertNewObjectForEntityForName:@"Key" inManagedObjectContext:managedObjectContext];
     
     if(newKey !=nil){
@@ -95,16 +96,62 @@
         newKey.userName=self.textUserName.text;
         newKey.password=self.textPassword.text;
         newKey.note=self.textNote.text;
-        
-        NSError *error=nil;
-        
-        if([managedObjectContext save:&error]){
-            [self.navigationController popViewControllerAnimated:YES];
-        }else{
-            NSLog(@"error : %@",error);
+        if ([newKey.userName length]==0) {
+            newKey.userName=@"";
         }
+        if ([newKey.password length]==0) {
+            newKey.password=@"";
+        }
+        if ([newKey.note length]==0) {
+            newKey.note=@"";
+        }
+            NSError *error=nil;
+        
+            if([managedObjectContext save:&error]){
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                NSLog(@"error : %@",error);
+            }
+        
     }else{
         NSLog(@"Create New Key Error");
     }
+    }
+}
+
+-(BOOL)checkKey:(NSString*)keyName withManageContext:(NSManagedObjectContext*)managedObjectContext {
+    BOOL vaild=YES;
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"输入提示" message:nil delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+    if([keyName length]==0){
+        alert.message=@"给钥匙起个名吧";
+        vaild=NO;
+        [alert show];
+    }
+    NSFetchRequest *fetchRequest=[[NSFetchRequest alloc]init];
+    NSEntityDescription *entity=[NSEntityDescription entityForName:@"Key" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSError *error=nil;
+    NSArray *keys=[managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if([keys count]>0){
+        for (Key *tofind in keys) {
+            if([tofind.name isEqualToString:keyName]){
+                alert.message=@"钥匙名重复了";
+                vaild=NO;
+                [alert show];
+                break;
+            }
+        }
+    }
+
+    return vaild;
+}
+
+- (NSManagedObjectContext *) managedObjectContext{
+    LEOAppDelegate *appDelegate =
+    (LEOAppDelegate *)
+    [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext =
+    appDelegate.managedObjectContext;
+    return managedObjectContext;
 }
 @end

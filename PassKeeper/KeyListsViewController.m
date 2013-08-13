@@ -38,6 +38,7 @@
         }else{
             NSLog(@"FecthError: %@",error);
         }
+        
     }
     return self;
 }
@@ -72,7 +73,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"section :%d",section);
     id<NSFetchedResultsSectionInfo> sectionInfo=[self.keyFetchResultController.sections objectAtIndex:section];
+    NSLog(@"rows :%d",[sectionInfo numberOfObjects]);
     return [sectionInfo numberOfObjects];
 }
 
@@ -130,6 +133,7 @@
             NSLog(@"saveError: %@",error);
         }
     }
+    self.keyFetchResultController.delegate=self;
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -139,7 +143,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
     self.pastedKey=key;
-    NSString *detail=[[NSString alloc] initWithFormat:@"%@  \n%@ \n%@",key.userName,key.password,key.note ];
+    NSString *userName=key.userName;
+    NSString *password=key.password;
+    NSString *note=key.note;
+    if([userName length]==0){
+        userName=@"";
+    }
+    NSString *detail=[[NSString alloc] initWithFormat:@"%@  \n%@ \n%@",userName,key.password,key.note ];
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:key.name message:detail delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"复制用户名／卡号",@"复制密码", nil];
     [alert show];
 }
