@@ -140,16 +140,14 @@
     return UITableViewCellEditingStyleDelete;
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return @"删除";
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
     self.pastedKey=key;
-    NSString *userName=key.userName;
-    NSString *password=key.password;
-    NSString *note=key.note;
-    if([userName length]==0){
-        userName=@"";
-    }
-    NSString *detail=[[NSString alloc] initWithFormat:@"%@  \n%@ \n%@",userName,key.password,key.note ];
+    
+    NSString *detail=[[NSString alloc] initWithFormat:@"%@  \n%@ \n%@",key.userName,key.password,key.note ];
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:key.name message:detail delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"复制用户名／卡号",@"复制密码", nil];
     [alert show];
 }
