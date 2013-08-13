@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface KeyDetailsViewController : UIViewController
+@interface KeyDetailsViewController : UIViewController<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *textName;
 @property (nonatomic, strong) UITextField *textUserName;

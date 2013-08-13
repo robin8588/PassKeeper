@@ -32,31 +32,41 @@
     CGRect textFieldRect=CGRectMake(20.0f, 20.0f, self.view.bounds.size.width-40.0f,31.0f);
     
     self.textName = [[UITextField alloc] initWithFrame:textFieldRect];
+    self.textName.tag=1;
     self.textName.placeholder = @"钥匙名称";
+    self.textName.returnKeyType=UIReturnKeyNext;
     self.textName.borderStyle = UITextBorderStyleRoundedRect;
     self.textName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.textName.contentVerticalAlignment =
     UIControlContentVerticalAlignmentCenter;
+    self.textName.delegate=self;
     [self.view addSubview:self.textName];
     
     textFieldRect.origin.y+=37.0f;
     self.textUserName = [[UITextField alloc] initWithFrame:textFieldRect];
+    self.textUserName.tag=2;
     self.textUserName.placeholder = @"用户名／卡号";
+    self.textUserName.returnKeyType =UIReturnKeyNext;
     self.textUserName.borderStyle = UITextBorderStyleRoundedRect;
     self.textUserName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.textUserName.contentVerticalAlignment =
     UIControlContentVerticalAlignmentCenter;
+    self.textUserName.delegate=self;
     [self.view addSubview:self.textUserName];
     
     textFieldRect.origin.y+=37.0f;
     self.textPassword = [[UITextField alloc] initWithFrame:textFieldRect];
+    self.textPassword.tag =3;
     self.textPassword.placeholder = @"密码";
+    self.textPassword.returnKeyType =UIReturnKeyNext;
+    self.textPassword.autocapitalizationType=UITextAutocapitalizationTypeNone;
     self.textPassword.borderStyle = UITextBorderStyleRoundedRect;
     self.textPassword.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.textPassword.contentVerticalAlignment =
     UIControlContentVerticalAlignmentCenter;
     self.textPassword.keyboardType=UIKeyboardTypeASCIICapable;
     [self.view addSubview:self.textPassword];
+    self.textPassword.delegate=self;
     
     textFieldRect.origin.y+=37.0f;
     self.textNote = [[UITextField alloc] initWithFrame:textFieldRect];
@@ -81,6 +91,24 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    switch (textField.tag) {
+        case 1:
+            [self.textUserName becomeFirstResponder];
+            break;
+        case 2:
+            [self.textPassword becomeFirstResponder];
+            break;
+        case 3:
+            [self.textNote becomeFirstResponder];
+            break;
+        default:
+            break;
+    }
+    return YES;
 }
 
 -(void)createNewKey:(id)sender{

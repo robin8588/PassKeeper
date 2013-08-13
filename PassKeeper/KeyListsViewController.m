@@ -148,18 +148,28 @@
     self.pastedKey=key;
     
     NSString *detail=[[NSString alloc] initWithFormat:@"%@  \n%@ \n%@",key.userName,key.password,key.note ];
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:key.name message:detail delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"复制用户名／卡号",@"复制密码", nil];
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:key.name message:detail delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    
+    if ([key.userName length]>0) {
+        [alert addButtonWithTitle:@"复制卡号／用户名"];
+    }
+    if ([key.password length] >0) {
+        [alert addButtonWithTitle:@"复制密码"];
+    }
     [alert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(buttonIndex==1)
+    NSString *buttonTitle=[alertView buttonTitleAtIndex:buttonIndex];
+    if([buttonTitle isEqualToString:@"复制卡号／用户名"])
     {
         UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
         [pasteBoard setString:self.pastedKey.userName];
-    }else if(buttonIndex ==2){
+        NSLog(@"username paste");
+    }else if([buttonTitle isEqualToString:@"复制密码"]){
         UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
         [pasteBoard setString:self.pastedKey.password];
+        NSLog(@"password paste");
     }
 }
 
