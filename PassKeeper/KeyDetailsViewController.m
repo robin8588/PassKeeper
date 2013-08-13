@@ -59,13 +59,13 @@
     [self.view addSubview:self.textPassword];
     
     textFieldRect.origin.y+=37.0f;
-    self.textPassword = [[UITextField alloc] initWithFrame:textFieldRect];
-    self.textPassword.placeholder = @"备注";
-    self.textPassword.borderStyle = UITextBorderStyleRoundedRect;
-    self.textPassword.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.textPassword.contentVerticalAlignment =
+    self.textNote = [[UITextField alloc] initWithFrame:textFieldRect];
+    self.textNote.placeholder = @"备注";
+    self.textNote.borderStyle = UITextBorderStyleRoundedRect;
+    self.textNote.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.textNote.contentVerticalAlignment =
     UIControlContentVerticalAlignmentCenter;
-    [self.view addSubview:self.textPassword];
+    [self.view addSubview:self.textNote];
     
     self.addButton=[[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(createNewKey:)];
     [self.navigationItem setRightBarButtonItem:self.addButton animated:NO];

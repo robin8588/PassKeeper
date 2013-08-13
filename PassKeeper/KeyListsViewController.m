@@ -12,6 +12,7 @@
 #import "LEOAppDelegate.h"
 
 @interface KeyListsViewController ()
+@property (nonatomic,strong) Key *pastedKey;
 
 @end
 
@@ -79,15 +80,17 @@
     UITableViewCell *result=nil;
     static  NSString *KeyTableViewCell=@"KeyTableViewCell";
     result=[tableView dequeueReusableCellWithIdentifier:KeyTableViewCell];
+    
     if(result == nil){
-        result=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:KeyTableViewCell];
-        result.selectionStyle=UITableViewCellSelectionStyleNone;
+        result=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:KeyTableViewCell];
+        result.selectionStyle=UITableViewCellSelectionStyleBlue;
+        result.accessoryType=UITableViewCellAccessoryNone;
+        result.editingAccessoryType=UITableViewCellAccessoryNone;
     }
     
     Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
     
     result.textLabel.text=key.name;
-    result.detailTextLabel.text=[NSString stringWithFormat:@"%@ \n %@",key.userName,key.password];
     return result;
 }
 
@@ -131,6 +134,25 @@
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return UITableViewCellEditingStyleDelete;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
+    self.pastedKey=key;
+    NSString *detail=[[NSString alloc] initWithFormat:@"%@  \n%@ \n%@",key.userName,key.password,key.note ];
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:key.name message:detail delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"复制用户名／卡号",@"复制密码", nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==1)
+    {
+        UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+        [pasteBoard setString:self.pastedKey.userName];
+    }else if(buttonIndex ==2){
+        UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+        [pasteBoard setString:self.pastedKey.password];
+    }
 }
 
 - (NSManagedObjectContext *) managedObjectContext{

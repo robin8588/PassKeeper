@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KeyListsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate>
+@interface KeyListsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) UITableView *keysTable;
 @property  (nonatomic,strong)UIBarButtonItem *topButtons;
