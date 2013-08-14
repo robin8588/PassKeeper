@@ -49,6 +49,7 @@
     
     self.title=@"钥匙串";
     self.keysTable = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.keysTable.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.keysTable.delegate=self;
     self.keysTable.dataSource=self;
     [self.view addSubview:self.keysTable];
