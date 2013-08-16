@@ -25,7 +25,7 @@
         // Custom initialization
         NSFetchRequest *fetchRequest=[[NSFetchRequest alloc]init];
         NSEntityDescription *entity=[NSEntityDescription entityForName:@"Key" inManagedObjectContext:[self managedObjectContext]];
-        NSSortDescriptor *sorter=[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        NSSortDescriptor *sorter=[[NSSortDescriptor alloc] initWithKey:@"rowIndex" ascending:YES];
         NSArray *sorters=[[NSArray alloc]initWithObjects:sorter, nil];
         fetchRequest.sortDescriptors=sorters;
         [fetchRequest setEntity:entity];
@@ -74,9 +74,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"section :%d",section);
     id<NSFetchedResultsSectionInfo> sectionInfo=[self.keyFetchResultController.sections objectAtIndex:section];
-    NSLog(@"rows :%d",[sectionInfo numberOfObjects]);
     return [sectionInfo numberOfObjects];
 }
 
@@ -92,12 +90,14 @@
     }
     
     Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
-    
     result.textLabel.text=key.name;
+    result.tag=indexPath.row;
+    NSLog(@"KeyRowIndex:%d",[key.rowIndex integerValue]);
     return result;
 }
 
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
+    NSLog(@"controllerDidChangeFiee");
     [self.keysTable reloadData];
 }
 
@@ -110,8 +110,20 @@
     }else{
         [self.navigationItem setRightBarButtonItem:self.topButtons];
         [self.navigationItem.leftBarButtonItem setTitle:@"编辑"];
+        for (NSInteger i=0; i<[[self.keysTable visibleCells] count]; i++) {
+            UITableViewCell *cell= [[self.keysTable visibleCells] objectAtIndex:i];
+            NSLog(@"cell:%@,%d",cell.textLabel.text,cell.tag);
+            Key *key=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:cell.tag inSection:0]];
+            NSLog(@"key:%@",key.name);
+            [key setRowIndex:[NSNumber numberWithInteger:i]];
+        }
+        NSError *error=nil;
+       if( ![self.keyFetchResultController.managedObjectContext save:&error])
+       {
+           NSLog(@"reOrderSaveError:%@",error);
+       }
     }
-    
+        
     [self.keysTable setEditing:editing animated:YES];
 }
 
@@ -164,10 +176,6 @@
 }
 
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
-    NSLog(@"source:%d",sourceIndexPath.row);
-    NSLog(@"to:%d",destinationIndexPath.row);
-    Key *key=[self.keyFetchResultController objectAtIndexPath:sourceIndexPath];
-    NSLog(@"source Key:%@",key);
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

@@ -22,13 +22,13 @@
 		1AE4215C17B8C079001A1B58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4215B17B8C079001A1B58 /* main.m */; };
 		1AE4216017B8C079001A1B58 /* LEOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4215F17B8C079001A1B58 /* LEOAppDelegate.m */; };
 		1AE4216917B8C079001A1B58 /* PassKeeper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4216717B8C079001A1B58 /* PassKeeper.xcdatamodeld */; };
-		1AE4217117B8C1DF001A1B58 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4217017B8C1DF001A1B58 /* Key.m */; };
 		1AE4217417B8C2C8001A1B58 /* KeyListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4217317B8C2C8001A1B58 /* KeyListsViewController.m */; };
 		1AE4217717B8C2DA001A1B58 /* KeyDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4217617B8C2DA001A1B58 /* KeyDetailsViewController.m */; };
 		1AEB440B17BA148D00B4A97F /* keys57.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB440A17BA148D00B4A97F /* keys57.png */; };
 		1AEB440D17BA161700B4A97F /* keys114.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB440C17BA161700B4A97F /* keys114.png */; };
 		1AEB440F17BA1B1500B4A97F /* keys72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB440E17BA1B1400B4A97F /* keys72.png */; };
 		1AEB441117BA1B9200B4A97F /* keys144.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AEB441017BA1B9200B4A97F /* keys144.png */; };
+		1AFB1CFE17BE0D3B0058A062 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB1CFD17BE0D3B0058A062 /* Key.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +61,9 @@
 		1AEB440C17BA161700B4A97F /* keys114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keys114.png; sourceTree = "<group>"; };
 		1AEB440E17BA1B1400B4A97F /* keys72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keys72.png; sourceTree = "<group>"; };
 		1AEB441017BA1B9200B4A97F /* keys144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keys144.png; sourceTree = "<group>"; };
+		1AFB1CFB17BE08240058A062 /* PassKeeper 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PassKeeper 2.xcdatamodel"; sourceTree = "<group>"; };
+		1AFB1CFC17BE0D3B0058A062 /* Key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Key.h; path = PassKeeper/Key.h; sourceTree = "<group>"; };
+		1AFB1CFD17BE0D3B0058A062 /* Key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Key.m; path = PassKeeper/Key.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +84,8 @@
 		1AE4214117B8C078001A1B58 = {
 			isa = PBXGroup;
 			children = (
+				1AFB1CFC17BE0D3B0058A062 /* Key.h */,
+				1AFB1CFD17BE0D3B0058A062 /* Key.m */,
 				1A9DDF8517BB43A600421010 /* Default-Landscape@2x~ipad.png */,
 				1A9DDF8317BB42E500421010 /* Default-Portrait@2x~ipad.png */,
 				1A9DDF8117BB429100421010 /* Default-Landscape~ipad.png */,
@@ -222,9 +227,9 @@
 				1AE4215C17B8C079001A1B58 /* main.m in Sources */,
 				1AE4216017B8C079001A1B58 /* LEOAppDelegate.m in Sources */,
 				1AE4216917B8C079001A1B58 /* PassKeeper.xcdatamodeld in Sources */,
-				1AE4217117B8C1DF001A1B58 /* Key.m in Sources */,
 				1AE4217417B8C2C8001A1B58 /* KeyListsViewController.m in Sources */,
 				1AE4217717B8C2DA001A1B58 /* KeyDetailsViewController.m in Sources */,
+				1AFB1CFE17BE0D3B0058A062 /* Key.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,9 +360,10 @@
 		1AE4216717B8C079001A1B58 /* PassKeeper.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1AFB1CFB17BE08240058A062 /* PassKeeper 2.xcdatamodel */,
 				1AE4216817B8C079001A1B58 /* PassKeeper.xcdatamodel */,
 			);
-			currentVersion = 1AE4216817B8C079001A1B58 /* PassKeeper.xcdatamodel */;
+			currentVersion = 1AFB1CFB17BE08240058A062 /* PassKeeper 2.xcdatamodel */;
 			path = PassKeeper.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
