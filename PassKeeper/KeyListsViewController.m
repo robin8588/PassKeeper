@@ -88,8 +88,7 @@
     if(result == nil){
         result=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:KeyTableViewCell];
         result.selectionStyle=UITableViewCellSelectionStyleBlue;
-        result.accessoryType=UITableViewCellAccessoryNone;
-        result.editingAccessoryType=UITableViewCellAccessoryNone;
+        result.showsReorderControl=YES;
     }
     
     Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
@@ -158,6 +157,17 @@
         [alert addButtonWithTitle:@"复制密码"];
     }
     [alert show];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    NSLog(@"source:%d",sourceIndexPath.row);
+    NSLog(@"to:%d",destinationIndexPath.row);
+    Key *key=[self.keyFetchResultController objectAtIndexPath:sourceIndexPath];
+    NSLog(@"source Key:%@",key);
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
