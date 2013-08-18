@@ -110,11 +110,12 @@
     }else{
         [self.navigationItem setRightBarButtonItem:self.topButtons];
         [self.navigationItem.leftBarButtonItem setTitle:@"编辑"];
+        NSLog(@"visibleCells:%d",[[self.keysTable visibleCells] count]);
         for (NSInteger i=0; i<[[self.keysTable visibleCells] count]; i++) {
             UITableViewCell *cell= [[self.keysTable visibleCells] objectAtIndex:i];
-            NSLog(@"cell:%@,%d",cell.textLabel.text,cell.tag);
+            NSLog(@"cellTest%@,cellTag%d",cell.textLabel.text,cell.tag);
             Key *key=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:cell.tag inSection:0]];
-            NSLog(@"key:%@",key.name);
+            NSLog(@"cellKey:%@",key.name);
             [key setRowIndex:[NSNumber numberWithInteger:i]];
         }
         NSError *error=nil;
@@ -136,8 +137,21 @@
         if([[self managedObjectContext] save:&error]){
             if([self.keyFetchResultController performFetch:&error]){
                 NSArray *rowsToDelete=[[NSArray alloc] initWithObjects:indexPath, nil];
-                
                 [[self keysTable]deleteRowsAtIndexPaths:rowsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
+                    for (NSInteger i=indexPath.row; i<[[self.keysTable visibleCells] count]; i++) {
+                    UITableViewCell *cell= [[self.keysTable visibleCells] objectAtIndex:i];
+                    NSLog(@"moveCellText:%@,cellTag%d",cell.textLabel.text,cell.tag);
+                    Key *keyold=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:cell.tag-1 inSection:0]];
+                    NSLog(@"moveCellKey:%@",keyold.name);
+                    [keyold setRowIndex:[NSNumber numberWithInteger:i]];
+                    [cell setTag:i];
+                        
+                    }
+                
+                    if( ![self.keyFetchResultController.managedObjectContext save:&error])
+                    {
+                        NSLog(@"deleteReOrderSaveError:%@",error);
+                    }
             }else{
                 NSLog(@"fecthError: %@",error);
             }

@@ -124,7 +124,7 @@
         newKey.userName=self.textUserName.text;
         newKey.password=self.textPassword.text;
         newKey.note=self.textNote.text;
-        newKey.rowIndex=[NSNumber numberWithInteger:0];
+        //newKey.rowIndex=[NSNumber numberWithInteger:0];
         if ([newKey.userName length]==0) {
             newKey.userName=@"";
         }
