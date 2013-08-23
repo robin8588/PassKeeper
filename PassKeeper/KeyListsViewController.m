@@ -91,8 +91,7 @@
     
     Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
     result.textLabel.text=key.name;
-    result.tag=indexPath.row;
-    NSLog(@"KeyRowIndex:%d",[key.rowIndex integerValue]);
+    NSLog(@"rowtext:%@ rowindex:%d",[key name],[key.rowIndex integerValue]);
     return result;
 }
 
@@ -110,21 +109,8 @@
     }else{
         [self.navigationItem setRightBarButtonItem:self.topButtons];
         [self.navigationItem.leftBarButtonItem setTitle:@"编辑"];
-        NSLog(@"visibleCells:%d",[[self.keysTable visibleCells] count]);
-        for (NSInteger i=0; i<[[self.keysTable visibleCells] count]; i++) {
-            UITableViewCell *cell= [[self.keysTable visibleCells] objectAtIndex:i];
-            NSLog(@"cellTest%@,cellTag%d",cell.textLabel.text,cell.tag);
-            Key *key=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:cell.tag inSection:0]];
-            NSLog(@"cellKey:%@",key.name);
-            [key setRowIndex:[NSNumber numberWithInteger:i]];
-        }
-        NSError *error=nil;
-       if( ![self.keyFetchResultController.managedObjectContext save:&error])
-       {
-           NSLog(@"reOrderSaveError:%@",error);
-       }
     }
-        
+    
     [self.keysTable setEditing:editing animated:YES];
 }
 
@@ -138,20 +124,6 @@
             if([self.keyFetchResultController performFetch:&error]){
                 NSArray *rowsToDelete=[[NSArray alloc] initWithObjects:indexPath, nil];
                 [[self keysTable]deleteRowsAtIndexPaths:rowsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
-                    for (NSInteger i=indexPath.row; i<[[self.keysTable visibleCells] count]; i++) {
-                    UITableViewCell *cell= [[self.keysTable visibleCells] objectAtIndex:i];
-                    NSLog(@"moveCellText:%@,cellTag%d",cell.textLabel.text,cell.tag);
-                    Key *keyold=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:cell.tag-1 inSection:0]];
-                    NSLog(@"moveCellKey:%@",keyold.name);
-                    [keyold setRowIndex:[NSNumber numberWithInteger:i]];
-                    [cell setTag:i];
-                        
-                    }
-                
-                    if( ![self.keyFetchResultController.managedObjectContext save:&error])
-                    {
-                        NSLog(@"deleteReOrderSaveError:%@",error);
-                    }
             }else{
                 NSLog(@"fecthError: %@",error);
             }
@@ -169,6 +141,7 @@
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
     return @"删除";
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
     self.pastedKey=key;
@@ -190,6 +163,42 @@
 }
 
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    NSLog(@"from:%d to:%d",[sourceIndexPath row],[destinationIndexPath row]);
+    
+    Key *movekey= [[self keyFetchResultController] objectAtIndexPath:sourceIndexPath];
+    [movekey setRowIndex:[NSNumber numberWithInteger:[destinationIndexPath row]]];
+    NSLog(@"move:%@ to:%d",[movekey name],[movekey.rowIndex integerValue]);
+    
+    if(destinationIndexPath.row>sourceIndexPath.row){
+        for (NSInteger i=sourceIndexPath.row+1; i<=destinationIndexPath.row; i++) {
+            Key *key=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            [key setRowIndex:[NSNumber numberWithInteger:i-1]];
+            NSLog(@"change:%@ to:%d",[key name],[key.rowIndex integerValue]);
+        }
+    }else{
+        for (NSInteger i=destinationIndexPath.row; i<sourceIndexPath.row; i++) {
+            Key *key=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            [key setRowIndex:[NSNumber numberWithInteger:i+1]];
+            NSLog(@"change:%@ to:%d",[key name],[key.rowIndex integerValue]);
+        }
+    }
+    
+    NSError *error=nil;
+    if([[self managedObjectContext] save:&error]){
+        NSLog(@"SaveReorderChange");
+        for (NSInteger i=0; i<[[self keysTable] numberOfRowsInSection:0]; i++) {
+            Key *key=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            [key setRowIndex:[NSNumber numberWithInteger:i]];
+            NSLog(@"confirm:%@ inrow:%d",[key name],[key.rowIndex integerValue]);
+        }
+        if([[self managedObjectContext] save:&error]){
+        }else{
+            NSLog(@"saveError: %@",error);
+        }
+        
+    }else{
+        NSLog(@"saveError: %@",error);
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

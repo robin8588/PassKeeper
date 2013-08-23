@@ -117,34 +117,34 @@
     NSManagedObjectContext *managedObjectContext=[self managedObjectContext];
     if([self checkKey:self.textName.text withManageContext:managedObjectContext])
     {
-    Key *newKey=[NSEntityDescription insertNewObjectForEntityForName:@"Key" inManagedObjectContext:managedObjectContext];
-    
-    if(newKey !=nil){
-        newKey.name =self.textName.text;
-        newKey.userName=self.textUserName.text;
-        newKey.password=self.textPassword.text;
-        newKey.note=self.textNote.text;
-        //newKey.rowIndex=[NSNumber numberWithInteger:0];
-        if ([newKey.userName length]==0) {
-            newKey.userName=@"";
-        }
-        if ([newKey.password length]==0) {
-            newKey.password=@"";
-        }
-        if ([newKey.note length]==0) {
-            newKey.note=@"";
-        }
-            NSError *error=nil;
+        Key *newKey=[NSEntityDescription insertNewObjectForEntityForName:@"Key" inManagedObjectContext:managedObjectContext];
         
+        if(newKey !=nil){
+            newKey.name =self.textName.text;
+            newKey.userName=self.textUserName.text;
+            newKey.password=self.textPassword.text;
+            newKey.note=self.textNote.text;
+            //newKey.rowIndex=[NSNumber numberWithInteger:0];
+            if ([newKey.userName length]==0) {
+                newKey.userName=@"";
+            }
+            if ([newKey.password length]==0) {
+                newKey.password=@"";
+            }
+            if ([newKey.note length]==0) {
+                newKey.note=@"";
+            }
+            NSError *error=nil;
+            
             if([managedObjectContext save:&error]){
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 NSLog(@"error : %@",error);
             }
-        
-    }else{
-        NSLog(@"Create New Key Error");
-    }
+            
+        }else{
+            NSLog(@"Create New Key Error");
+        }
     }
 }
 
@@ -171,7 +171,7 @@
             }
         }
     }
-
+    
     return vaild;
 }
 
