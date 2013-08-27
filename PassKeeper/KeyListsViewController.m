@@ -13,7 +13,15 @@
 
 @interface KeyListsViewController ()
 @property (nonatomic,strong) Key *pastedKey;
+@property (nonatomic,strong) NSIndexPath *deleteIndexPath;
 
+@property (nonatomic,strong) NSString *NavBarTItle;
+@property (nonatomic,strong) NSString *OkButtonName;
+@property (nonatomic,strong) NSString *CancelButtonName;
+@property (nonatomic,strong) NSString *CopyAccount;
+@property (nonatomic,strong) NSString *CopyPassword;
+@property (nonatomic,strong) NSString *DeleteConfirm;
+@property (nonatomic,strong) NSString *DeleteKey;
 @end
 
 @implementation KeyListsViewController
@@ -46,8 +54,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initLanguageString];
     
-    self.title=@"钥匙串";
     self.keysTable = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.keysTable.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.keysTable.delegate=self;
@@ -55,11 +63,12 @@
     [self.view addSubview:self.keysTable];
     
     self.topButtons=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewKey:)];
-    [self.editButtonItem setTitle:@"编辑"];
     [self.navigationItem setLeftBarButtonItem:[self editButtonItem] animated:NO];
     [self.navigationItem setRightBarButtonItem:self.topButtons animated:NO];
     
-	// Do any additional setup after loading the view.
+    self.title=self.NavBarTItle;
+    
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -105,41 +114,21 @@
     
     if(editing){
         [self.navigationItem setRightBarButtonItem:nil animated:YES];
-        [self.navigationItem.leftBarButtonItem setTitle:@"完成"];
     }else{
         [self.navigationItem setRightBarButtonItem:self.topButtons];
-        [self.navigationItem.leftBarButtonItem setTitle:@"编辑"];
     }
     
     [self.keysTable setEditing:editing animated:YES];
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
-    self.keyFetchResultController.delegate=nil;
-    [[self managedObjectContext] deleteObject:key];
-    if([key isDeleted]){
-        NSError *error=nil;
-        if([[self managedObjectContext] save:&error]){
-            if([self.keyFetchResultController performFetch:&error]){
-                NSArray *rowsToDelete=[[NSArray alloc] initWithObjects:indexPath, nil];
-                [[self keysTable]deleteRowsAtIndexPaths:rowsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
-            }else{
-                NSLog(@"fecthError: %@",error);
-            }
-        }else{
-            NSLog(@"saveError: %@",error);
-        }
-    }
-    self.keyFetchResultController.delegate=self;
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"" message:self.DeleteConfirm delegate:self cancelButtonTitle:self.CancelButtonName otherButtonTitles:self.DeleteKey, nil];
+    self.deleteIndexPath=indexPath;
+    [alert show];
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return UITableViewCellEditingStyleDelete;
-}
-
--(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return @"删除";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -147,14 +136,16 @@
     self.pastedKey=key;
     
     NSString *detail=[[NSString alloc] initWithFormat:@"%@  \n%@ \n%@",key.userName,key.password,key.note ];
-    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:key.name message:detail delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:key.name message:detail delegate:self cancelButtonTitle:self.OkButtonName otherButtonTitles:nil, nil];
     
     if ([key.userName length]>0) {
-        [alert addButtonWithTitle:@"复制卡号／用户名"];
+        [alert addButtonWithTitle:self.CopyAccount];
     }
     if ([key.password length] >0) {
-        [alert addButtonWithTitle:@"复制密码"];
+        [alert addButtonWithTitle:self.CopyPassword];
     }
+    
     [alert show];
 }
 
@@ -203,15 +194,33 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSString *buttonTitle=[alertView buttonTitleAtIndex:buttonIndex];
-    if([buttonTitle isEqualToString:@"复制卡号／用户名"])
+    if([buttonTitle isEqualToString:self.CopyAccount])
     {
         UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
         [pasteBoard setString:self.pastedKey.userName];
-        NSLog(@"username paste");
-    }else if([buttonTitle isEqualToString:@"复制密码"]){
+        NSLog(@"account paste");
+    }else if([buttonTitle isEqualToString:self.CopyPassword]){
         UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
         [pasteBoard setString:self.pastedKey.password];
         NSLog(@"password paste");
+    }else if([buttonTitle isEqualToString:self.DeleteKey]){
+        Key *key=[self.keyFetchResultController objectAtIndexPath:self.deleteIndexPath];
+        self.keyFetchResultController.delegate=nil;
+        [[self managedObjectContext] deleteObject:key];
+        if([key isDeleted]){
+            NSError *error=nil;
+            if([[self managedObjectContext] save:&error]){
+                if([self.keyFetchResultController performFetch:&error]){
+                    NSArray *rowsToDelete=[[NSArray alloc] initWithObjects:self.deleteIndexPath, nil];
+                    [[self keysTable]deleteRowsAtIndexPaths:rowsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
+                }else{
+                    NSLog(@"fecthError: %@",error);
+                }
+            }else{
+                NSLog(@"saveError: %@",error);
+            }
+        }
+        self.keyFetchResultController.delegate=self;
     }
 }
 
@@ -224,4 +233,25 @@
     return managedObjectContext;
 }
 
+-(void)initLanguageString{
+    NSString *identifier =[[NSLocale preferredLanguages] objectAtIndex:0];
+    NSLog(@"languageID:%@",identifier);
+    if ([identifier isEqualToString:@"zh-Hans"]) {
+        self.NavBarTItle=@"钥匙链";
+        self.CancelButtonName=@"取消";
+        self.OkButtonName=@"知道了";
+        self.CopyAccount=@"复制帐号";
+        self.CopyPassword=@"复制密码";
+        self.DeleteConfirm=@"确认要删除吗？";
+        self.DeleteKey=@"删除钥匙";
+    }else{
+        self.NavBarTItle=@"PassKeeper";
+        self.CancelButtonName=@"Cancel";
+        self.OkButtonName=@"OK";
+        self.CopyAccount=@"Copy AccountName";
+        self.CopyPassword=@"Copy Password";
+        self.DeleteConfirm=@"Delete This Key?";
+        self.DeleteKey=@"DeleteKey";
+    }
+}
 @end

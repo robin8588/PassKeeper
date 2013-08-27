@@ -2,7 +2,7 @@
 //  Key.m
 //  PassKeeper
 //
-//  Created by Wang Leo on 13-8-16.
+//  Created by Wang Leo on 13-8-26.
 //  Copyright (c) 2013年 Wang Leo. All rights reserved.
 //
 
@@ -14,7 +14,7 @@
 @dynamic name;
 @dynamic note;
 @dynamic password;
-@dynamic userName;
 @dynamic rowIndex;
+@dynamic userName;
 
 @end

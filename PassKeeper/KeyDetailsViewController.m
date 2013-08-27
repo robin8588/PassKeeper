@@ -11,7 +11,15 @@
 #import "Key.h"
 
 @interface KeyDetailsViewController ()
-
+@property (nonatomic,strong) NSString *NavBarTItle;
+@property (nonatomic,strong) NSString *KeyNameText;
+@property (nonatomic,strong) NSString *AccountNameText;
+@property (nonatomic,strong) NSString *PasswordText;
+@property (nonatomic,strong) NSString *NoteText;
+@property (nonatomic,strong) NSString *AlertTitle;
+@property (nonatomic,strong) NSString *AlertMsgNoKeyName;
+@property (nonatomic,strong) NSString *AlertMsgKeyNameExist;
+@property (nonatomic,strong) NSString *CancelButtonName;
 @end
 
 @implementation KeyDetailsViewController
@@ -28,12 +36,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title  =@"新钥匙";
+    [self initLanguageString];
+    self.title  = self.NavBarTItle;
     CGRect textFieldRect=CGRectMake(20.0f, 20.0f, self.view.bounds.size.width-40.0f,31.0f);
     
     self.textName = [[UITextField alloc] initWithFrame:textFieldRect];
     self.textName.tag=1;
-    self.textName.placeholder = @"钥匙名称";
+    self.textName.placeholder = self.KeyNameText;
     self.textName.returnKeyType=UIReturnKeyNext;
     self.textName.borderStyle = UITextBorderStyleRoundedRect;
     self.textName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -45,7 +54,7 @@
     textFieldRect.origin.y+=37.0f;
     self.textUserName = [[UITextField alloc] initWithFrame:textFieldRect];
     self.textUserName.tag=2;
-    self.textUserName.placeholder = @"用户名／卡号";
+    self.textUserName.placeholder = self.AccountNameText;
     self.textUserName.returnKeyType =UIReturnKeyNext;
     self.textUserName.borderStyle = UITextBorderStyleRoundedRect;
     self.textUserName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -57,7 +66,7 @@
     textFieldRect.origin.y+=37.0f;
     self.textPassword = [[UITextField alloc] initWithFrame:textFieldRect];
     self.textPassword.tag =3;
-    self.textPassword.placeholder = @"密码";
+    self.textPassword.placeholder = self.PasswordText;
     self.textPassword.returnKeyType =UIReturnKeyNext;
     self.textPassword.autocapitalizationType=UITextAutocapitalizationTypeNone;
     self.textPassword.borderStyle = UITextBorderStyleRoundedRect;
@@ -70,14 +79,14 @@
     
     textFieldRect.origin.y+=37.0f;
     self.textNote = [[UITextField alloc] initWithFrame:textFieldRect];
-    self.textNote.placeholder = @"备注";
+    self.textNote.placeholder = self.NoteText;
     self.textNote.borderStyle = UITextBorderStyleRoundedRect;
     self.textNote.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.textNote.contentVerticalAlignment =
     UIControlContentVerticalAlignmentCenter;
     [self.view addSubview:self.textNote];
     
-    self.addButton=[[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(createNewKey:)];
+    self.addButton=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(createNewKey:)];
     [self.navigationItem setRightBarButtonItem:self.addButton animated:NO];
 	// Do any additional setup after loading the view.
 }
@@ -150,9 +159,9 @@
 
 -(BOOL)checkKey:(NSString*)keyName withManageContext:(NSManagedObjectContext*)managedObjectContext {
     BOOL vaild=YES;
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"输入提示" message:nil delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:self.AlertTitle message:nil delegate:nil cancelButtonTitle:self.CancelButtonName otherButtonTitles:nil, nil];
     if([keyName length]==0){
-        alert.message=@"给钥匙起个名吧";
+        alert.message=self.AlertMsgNoKeyName;
         vaild=NO;
         [alert show];
     }
@@ -164,7 +173,7 @@
     if([keys count]>0){
         for (Key *tofind in keys) {
             if([tofind.name isEqualToString:keyName]){
-                alert.message=@"钥匙名重复了";
+                alert.message=self.AlertMsgKeyNameExist;
                 vaild=NO;
                 [alert show];
                 break;
@@ -182,5 +191,31 @@
     NSManagedObjectContext *managedObjectContext =
     appDelegate.managedObjectContext;
     return managedObjectContext;
+}
+
+-(void)initLanguageString{
+    NSString *identifier =[[NSLocale preferredLanguages] objectAtIndex:0];
+    NSLog(@"languageID:%@",identifier);
+    if ([identifier isEqualToString:@"zh-Hans"]) {
+        self.NavBarTItle=@"新钥匙";
+        self.KeyNameText=@"钥匙名";
+        self.AccountNameText=@"账户名（卡号／用户名）";
+        self.PasswordText=@"密码";
+        self.NoteText=@"备注";
+        self.AlertTitle=@"";
+        self.AlertMsgNoKeyName=@"给钥匙起个名吧";
+        self.AlertMsgKeyNameExist=@"钥匙名重复了";
+        self.CancelButtonName=@"知道了";
+    }else{
+        self.NavBarTItle=@"New Key";
+        self.KeyNameText=@"Key Name";
+        self.AccountNameText=@"AccountName(Card No. ,etc.)";
+        self.PasswordText=@"Password";
+        self.NoteText=@"Note";
+        self.AlertTitle=@"";
+        self.AlertMsgNoKeyName=@"Please Name This Key";
+        self.AlertMsgKeyNameExist=@"Key Name Already Exist";
+        self.CancelButtonName=@"OK";
+    }
 }
 @end
