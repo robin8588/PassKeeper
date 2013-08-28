@@ -20,6 +20,8 @@
 @property (nonatomic,strong) NSString *AlertMsgNoKeyName;
 @property (nonatomic,strong) NSString *AlertMsgKeyNameExist;
 @property (nonatomic,strong) NSString *CancelButtonName;
+@property (nonatomic,strong) NSString *NavBarTitleEdit;
+@property (nonatomic,strong) Key *key;
 @end
 
 @implementation KeyDetailsViewController
@@ -29,6 +31,16 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.key=nil;
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil editKey:(Key *)key
+{
+    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.key=key;
     }
     return self;
 }
@@ -37,7 +49,9 @@
 {
     [super viewDidLoad];
     [self initLanguageString];
+    
     self.title  = self.NavBarTItle;
+    
     CGRect textFieldRect=CGRectMake(20.0f, 20.0f, self.view.bounds.size.width-40.0f,31.0f);
     
     self.textName = [[UITextField alloc] initWithFrame:textFieldRect];
@@ -88,12 +102,24 @@
     
     self.addButton=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(createNewKey:)];
     [self.navigationItem setRightBarButtonItem:self.addButton animated:NO];
+    
 	// Do any additional setup after loading the view.
+    if(self.key){
+        self.title=self.NavBarTitleEdit;
+        self.textName.text=self.key.name;
+        self.textUserName.text=self.key.userName;
+        self.textPassword.text=self.key.password;
+        self.textNote.text=self.key.note;
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.textName becomeFirstResponder];
+    if(self.key){
+        [self.textName setEnabled:NO];
+        [self.textUserName becomeFirstResponder];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,6 +128,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UITextFieldDelegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     switch (textField.tag) {
@@ -120,10 +147,23 @@
     return YES;
 }
 
+#pragma mark - Function
 -(void)createNewKey:(id)sender{
-    
-    
     NSManagedObjectContext *managedObjectContext=[self managedObjectContext];
+    
+    if(self.key){
+        self.key.userName=self.textUserName.text;
+        self.key.password=self.textPassword.text;
+        self.key.note=self.textNote.text;
+        
+        NSError *error=nil;
+        
+        if([managedObjectContext save:&error]){
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            NSLog(@"error : %@",error);
+        }
+    }else{
     if([self checkKey:self.textName.text withManageContext:managedObjectContext])
     {
         Key *newKey=[NSEntityDescription insertNewObjectForEntityForName:@"Key" inManagedObjectContext:managedObjectContext];
@@ -155,6 +195,7 @@
             NSLog(@"Create New Key Error");
         }
     }
+    }
 }
 
 -(BOOL)checkKey:(NSString*)keyName withManageContext:(NSManagedObjectContext*)managedObjectContext {
@@ -180,7 +221,6 @@
             }
         }
     }
-    
     return vaild;
 }
 
@@ -206,6 +246,7 @@
         self.AlertMsgNoKeyName=@"给钥匙起个名吧";
         self.AlertMsgKeyNameExist=@"钥匙名重复了";
         self.CancelButtonName=@"知道了";
+        self.NavBarTitleEdit=@"编辑钥匙";
     }else{
         self.NavBarTItle=@"New Key";
         self.KeyNameText=@"Key Name";
@@ -216,6 +257,7 @@
         self.AlertMsgNoKeyName=@"Please Name This Key";
         self.AlertMsgKeyNameExist=@"Key Name Already Exist";
         self.CancelButtonName=@"OK";
+        self.NavBarTitleEdit=@"EditKey";
     }
 }
 @end

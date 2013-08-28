@@ -22,6 +22,7 @@
 @property (nonatomic,strong) NSString *CopyPassword;
 @property (nonatomic,strong) NSString *DeleteConfirm;
 @property (nonatomic,strong) NSString *DeleteKey;
+@property (nonatomic,strong) NSString *EditKey;
 @end
 
 @implementation KeyListsViewController
@@ -77,11 +78,19 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) addNewKey:(id)sender{
-    KeyDetailsViewController *detailController=[[KeyDetailsViewController alloc]initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:detailController animated:YES];
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated{
+    [super setEditing:editing animated:animated];
+    
+    if(editing){
+        [self.navigationItem setRightBarButtonItem:nil animated:YES];
+    }else{
+        [self.navigationItem setRightBarButtonItem:self.topButtons];
+    }
+    
+    [self.keysTable setEditing:editing animated:YES];
 }
 
+#pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     id<NSFetchedResultsSectionInfo> sectionInfo=[self.keyFetchResultController.sections objectAtIndex:section];
     return [sectionInfo numberOfObjects];
@@ -104,48 +113,9 @@
     return result;
 }
 
--(void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
-    NSLog(@"controllerDidChangeFiee");
-    [self.keysTable reloadData];
-}
-
--(void)setEditing:(BOOL)editing animated:(BOOL)animated{
-    [super setEditing:editing animated:animated];
-    
-    if(editing){
-        [self.navigationItem setRightBarButtonItem:nil animated:YES];
-    }else{
-        [self.navigationItem setRightBarButtonItem:self.topButtons];
-    }
-    
-    [self.keysTable setEditing:editing animated:YES];
-}
-
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"" message:self.DeleteConfirm delegate:self cancelButtonTitle:self.CancelButtonName otherButtonTitles:self.DeleteKey, nil];
     self.deleteIndexPath=indexPath;
-    [alert show];
-}
-
--(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewCellEditingStyleDelete;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
-    self.pastedKey=key;
-    
-    NSString *detail=[[NSString alloc] initWithFormat:@"%@  \n%@ \n%@",key.userName,key.password,key.note ];
-    
-    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:key.name message:detail delegate:self cancelButtonTitle:self.OkButtonName otherButtonTitles:nil, nil];
-    
-    if ([key.userName length]>0) {
-        [alert addButtonWithTitle:self.CopyAccount];
-    }
-    if ([key.password length] >0) {
-        [alert addButtonWithTitle:self.CopyPassword];
-    }
-    
     [alert show];
 }
 
@@ -192,6 +162,39 @@
     }
 }
 
+#pragma mark - NSFetchedResultsControllerDelegate
+-(void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
+    NSLog(@"controllerDidChangeFiee");
+    [self.keysTable reloadData];
+}
+
+
+#pragma mark - UITableViewDelegate
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
+    self.pastedKey=key;
+    
+    NSString *detail=[[NSString alloc] initWithFormat:@"%@  \n%@ \n%@",key.userName,key.password,key.note ];
+    
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:key.name message:detail delegate:self cancelButtonTitle:self.OkButtonName otherButtonTitles:nil, nil];
+    
+    if ([key.userName length]>0) {
+        [alert addButtonWithTitle:self.CopyAccount];
+    }
+    if ([key.password length] >0) {
+        [alert addButtonWithTitle:self.CopyPassword];
+    }
+    
+    [alert addButtonWithTitle:self.EditKey];
+    
+    [alert show];
+}
+
+#pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSString *buttonTitle=[alertView buttonTitleAtIndex:buttonIndex];
     if([buttonTitle isEqualToString:self.CopyAccount])
@@ -221,8 +224,18 @@
             }
         }
         self.keyFetchResultController.delegate=self;
+    }else if([buttonTitle isEqualToString:self.EditKey]){
+        KeyDetailsViewController *detailController=[[KeyDetailsViewController alloc]initWithNibName:nil bundle:nil editKey:self.pastedKey];
+        [self.navigationController pushViewController:detailController animated:YES];
     }
 }
+
+#pragma mark - Function
+-(void) addNewKey:(id)sender{
+    KeyDetailsViewController *detailController=[[KeyDetailsViewController alloc]initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:detailController animated:YES];
+}
+
 
 - (NSManagedObjectContext *) managedObjectContext{
     LEOAppDelegate *appDelegate =
@@ -244,6 +257,7 @@
         self.CopyPassword=@"复制密码";
         self.DeleteConfirm=@"确认要删除吗？";
         self.DeleteKey=@"删除钥匙";
+        self.EditKey=@"修改";
     }else{
         self.NavBarTItle=@"PassKeeper";
         self.CancelButtonName=@"Cancel";
@@ -252,6 +266,7 @@
         self.CopyPassword=@"Copy Password";
         self.DeleteConfirm=@"Delete This Key?";
         self.DeleteKey=@"DeleteKey";
+        self.EditKey=@"Edit";
     }
 }
 @end

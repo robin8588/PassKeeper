@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "Key.h"
 
 @interface KeyDetailsViewController : UIViewController<UITextFieldDelegate>
 
@@ -17,4 +18,5 @@
 @property (nonatomic, strong) UITextField *textNote;
 @property (nonatomic, strong) UIBarButtonItem *addButton;
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil editKey:(Key *)key;
 @end
