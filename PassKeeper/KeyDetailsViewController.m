@@ -70,10 +70,12 @@
     self.textUserName.tag=2;
     self.textUserName.placeholder = self.AccountNameText;
     self.textUserName.returnKeyType =UIReturnKeyNext;
+    self.textUserName.autocapitalizationType=UITextAutocapitalizationTypeNone;
     self.textUserName.borderStyle = UITextBorderStyleRoundedRect;
     self.textUserName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.textUserName.contentVerticalAlignment =
     UIControlContentVerticalAlignmentCenter;
+    self.textUserName.keyboardType=UIKeyboardTypeAlphabet;
     self.textUserName.delegate=self;
     [self.view addSubview:self.textUserName];
     
@@ -88,8 +90,8 @@
     self.textPassword.contentVerticalAlignment =
     UIControlContentVerticalAlignmentCenter;
     self.textPassword.keyboardType=UIKeyboardTypeASCIICapable;
-    [self.view addSubview:self.textPassword];
     self.textPassword.delegate=self;
+    [self.view addSubview:self.textPassword];
     
     textFieldRect.origin.y+=37.0f;
     self.textNote = [[UITextField alloc] initWithFrame:textFieldRect];

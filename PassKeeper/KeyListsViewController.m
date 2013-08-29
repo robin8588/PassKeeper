@@ -178,7 +178,7 @@
     Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
     self.pastedKey=key;
     
-    NSString *detail=[[NSString alloc] initWithFormat:@"%@  \n%@ \n%@",key.userName,key.password,key.note ];
+    NSString *detail=[[NSString alloc] initWithFormat:@"%@ \n%@ \n%@",key.userName,key.password,key.note ];
     
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:key.name message:detail delegate:self cancelButtonTitle:self.OkButtonName otherButtonTitles:nil, nil];
     
