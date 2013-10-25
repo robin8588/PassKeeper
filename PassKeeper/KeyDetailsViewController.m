@@ -51,8 +51,17 @@
     [self initLanguageString];
     
     self.title  = self.NavBarTItle;
-    
-    CGRect textFieldRect=CGRectMake(20.0f, 20.0f, self.view.bounds.size.width-40.0f,31.0f);
+    self.addButton=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(createNewKey:)];
+    [self.navigationItem setRightBarButtonItem:self.addButton animated:NO];
+
+    CGRect textFieldRect;
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        // Load resources for iOS 6.1 or earlier
+        textFieldRect=CGRectMake(20.0f, 20.0f, self.view.bounds.size.width-40.0f,31.0f);
+    } else {
+        // Load resources for iOS 7 or later
+        textFieldRect=CGRectMake(20.0f, 80.0f, self.view.bounds.size.width-40.0f,31.0f);
+    }
     
     self.textName = [[UITextField alloc] initWithFrame:textFieldRect];
     self.textName.tag=1;
@@ -102,8 +111,6 @@
     UIControlContentVerticalAlignmentCenter;
     [self.view addSubview:self.textNote];
     
-    self.addButton=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(createNewKey:)];
-    [self.navigationItem setRightBarButtonItem:self.addButton animated:NO];
     
 	// Do any additional setup after loading the view.
     if(self.key){

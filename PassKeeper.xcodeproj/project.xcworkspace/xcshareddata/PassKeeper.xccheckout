@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>80C7F031-D390-4E51-885A-28395641F06E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>PassKeeper</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>FE7FBACC-6BA2-49C7-9438-CB75BC5544C2</key>
+		<string>https://github.com/craig8588/PassKeeper.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PassKeeper.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>FE7FBACC-6BA2-49C7-9438-CB75BC5544C2</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/craig8588/PassKeeper.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>FE7FBACC-6BA2-49C7-9438-CB75BC5544C2</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FE7FBACC-6BA2-49C7-9438-CB75BC5544C2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PassKeeper</string>
+		</dict>
+	</array>
+</dict>
+</plist>
