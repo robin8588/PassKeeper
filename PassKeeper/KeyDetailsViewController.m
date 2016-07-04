@@ -245,7 +245,7 @@
 -(void)initLanguageString{
     NSString *identifier =[[NSLocale preferredLanguages] objectAtIndex:0];
     NSLog(@"languageID:%@",identifier);
-    if ([identifier isEqualToString:@"zh-Hans"]) {
+    if ([identifier isEqualToString:@"zh-Hans-CN"]) {
         self.NavBarTItle=@"新钥匙";
         self.KeyNameText=@"钥匙名";
         self.AccountNameText=@"账户名（卡号／用户名）";

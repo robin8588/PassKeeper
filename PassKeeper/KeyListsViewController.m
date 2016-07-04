@@ -109,7 +109,7 @@
     
     Key *key=[self.keyFetchResultController objectAtIndexPath:indexPath];
     result.textLabel.text=key.name;
-    NSLog(@"rowtext:%@ rowindex:%d",[key name],[key.rowIndex integerValue]);
+    NSLog(@"rowtext:%@ rowindex:%ld",[key name],(long)[key.rowIndex integerValue]);
     return result;
 }
 
@@ -124,23 +124,23 @@
 }
 
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
-    NSLog(@"from:%d to:%d",[sourceIndexPath row],[destinationIndexPath row]);
+    NSLog(@"from:%ld to:%ld",(long)[sourceIndexPath row],(long)[destinationIndexPath row]);
     
     Key *movekey= [[self keyFetchResultController] objectAtIndexPath:sourceIndexPath];
     [movekey setRowIndex:[NSNumber numberWithInteger:[destinationIndexPath row]]];
-    NSLog(@"move:%@ to:%d",[movekey name],[movekey.rowIndex integerValue]);
+    NSLog(@"move:%@ to:%ld",[movekey name],(long)[movekey.rowIndex integerValue]);
     
     if(destinationIndexPath.row>sourceIndexPath.row){
         for (NSInteger i=sourceIndexPath.row+1; i<=destinationIndexPath.row; i++) {
             Key *key=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             [key setRowIndex:[NSNumber numberWithInteger:i-1]];
-            NSLog(@"change:%@ to:%d",[key name],[key.rowIndex integerValue]);
+            NSLog(@"change:%@ to:%ld",[key name],(long)[key.rowIndex integerValue]);
         }
     }else{
         for (NSInteger i=destinationIndexPath.row; i<sourceIndexPath.row; i++) {
             Key *key=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             [key setRowIndex:[NSNumber numberWithInteger:i+1]];
-            NSLog(@"change:%@ to:%d",[key name],[key.rowIndex integerValue]);
+            NSLog(@"change:%@ to:%ld",[key name],(long)[key.rowIndex integerValue]);
         }
     }
     
@@ -150,7 +150,7 @@
         for (NSInteger i=0; i<[[self keysTable] numberOfRowsInSection:0]; i++) {
             Key *key=[self.keyFetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             [key setRowIndex:[NSNumber numberWithInteger:i]];
-            NSLog(@"confirm:%@ inrow:%d",[key name],[key.rowIndex integerValue]);
+            NSLog(@"confirm:%@ inrow:%ld",[key name],(long)[key.rowIndex integerValue]);
         }
         if([[self managedObjectContext] save:&error]){
         }else{
@@ -226,14 +226,14 @@
         self.keyFetchResultController.delegate=self;
     }else if([buttonTitle isEqualToString:self.EditKey]){
         KeyDetailsViewController *detailController=[[KeyDetailsViewController alloc]initWithNibName:nil bundle:nil editKey:self.pastedKey];
-        [self.navigationController pushViewController:detailController animated:YES];
+        [self.navigationController pushViewController:detailController animated:NO];
     }
 }
 
 #pragma mark - Function
 -(void) addNewKey:(id)sender{
     KeyDetailsViewController *detailController=[[KeyDetailsViewController alloc]initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:detailController animated:YES];
+    [self.navigationController pushViewController:detailController animated:NO];
 }
 
 
@@ -249,7 +249,7 @@
 -(void)initLanguageString{
     NSString *identifier =[[NSLocale preferredLanguages] objectAtIndex:0];
     NSLog(@"languageID:%@",identifier);
-    if ([identifier isEqualToString:@"zh-Hans"]) {
+    if ([identifier isEqualToString:@"zh-Hans-CN"]) {
         self.NavBarTItle=@"钥匙链";
         self.CancelButtonName=@"取消";
         self.OkButtonName=@"知道了";
